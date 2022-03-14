@@ -9,7 +9,7 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 from django.db import models
-
+from django.utils import timezone
 # Create your models here.
 class Cash_Report_Per_Member(models.Model):
     id = models.AutoField(primary_key=True)
@@ -76,9 +76,9 @@ class Store(models.Model):
     store_is_open=models.IntegerField(null=True)
     store_is_selfsupport =models.IntegerField(null=True)
     shop_owner_id=models.IntegerField(unique=True,db_index=True)
-    created_at =models.DateTimeField(auto_now=True)
-    updated_at=models.DateTimeField(auto_now=True)
-    deleted_at =models.DateTimeField(auto_now=True,null=True)
+    created_at =models.DateTimeField(default=timezone.now)
+    updated_at=models.DateTimeField(default=timezone.now)
+    deleted_at =models.DateTimeField(default=timezone.now,null=True)
     tax_number = models.CharField(max_length=500,null=True)
     company_id =models.IntegerField(null=True)
 class Chain(models.Model):
@@ -102,9 +102,9 @@ class Chain(models.Model):
     chain_district_info =models.CharField(max_length=500,null=True)
     shop_owner_id =models.IntegerField(db_index=True)
     manager_id=models.IntegerField(null=True,db_index=True)
-    created_at=models.DateTimeField(auto_now=True)
-    updated_at =models.DateTimeField(auto_now=True)
-    deleted_at =models.DateTimeField(auto_now=True,null=True)
+    created_at=models.DateTimeField(default=timezone.now)
+    updated_at =models.DateTimeField(default=timezone.now)
+    deleted_at =models.DateTimeField(default=timezone.now,null=True)
     cash_registers =models.IntegerField(null=True)
     contact =models.CharField(max_length=500,null=True)
     warehouse_id =models.IntegerField(null=True,db_index=True)
@@ -124,8 +124,8 @@ class Chain(models.Model):
 class Payment_Methods(models.Model):
     id=models.AutoField(primary_key=True)
     name=models.CharField(max_length=500,null=True)
-    created_at=models.DateTimeField(auto_now=True)
-    updated_at=models.DateTimeField(auto_now=True)
+    created_at=models.DateTimeField(default=timezone.now)
+    updated_at=models.DateTimeField(default=timezone.now)
 class Cachier(models.Model) :
     id=models.AutoField(primary_key=True)
     first_name=models.CharField(max_length=500)
@@ -139,8 +139,8 @@ class Cachier(models.Model) :
     img_url=models.CharField(max_length=500,null=True)
     img_name =models.CharField(max_length=500,null=True)
     hidden = models.IntegerField(default=1)
-    created_at=models.DateTimeField(auto_now=True)
-    updated_at=models.DateTimeField(auto_now=True)
+    created_at=models.DateTimeField(default=timezone.now)
+    updated_at=models.DateTimeField(default=timezone.now)
     user_id=models.IntegerField(default=1)
     
     
@@ -152,9 +152,9 @@ class Orders(models.Model):
     TVA=models.DecimalField(decimal_places=2,max_digits=12,null=True)
     chain_id =models.IntegerField(db_index=True)
     cachier_id=models.IntegerField(db_index=True)
-    created_at=models.DateTimeField(auto_now=True)
-    updated_at=models.DateTimeField(auto_now=True)
-    deleted_at=models.DateTimeField(auto_now=True)
+    created_at=models.DateTimeField(default=timezone.now)
+    updated_at=models.DateTimeField(default=timezone.now)
+    deleted_at=models.DateTimeField(default=timezone.now)
     payment_method_id=models.IntegerField(db_index=True)
     discount_amount=models.DecimalField(decimal_places=2,max_digits=12,null=True)
     order_number = models.CharField(max_length=500,null=True)
@@ -169,7 +169,7 @@ class Orders(models.Model):
     order_cost=models.DecimalField(decimal_places=2,max_digits=12,null=True)
     online_order_number = models.CharField(max_length=500,null=True)
     online_user_id =models.CharField(max_length=500,null=True)
-    payment_date=models.DateTimeField(auto_now=True)
+    payment_date=models.DateTimeField(default=timezone.now)
     is_paid =models.IntegerField()
     
 class Category(models.Model):
@@ -179,15 +179,15 @@ class Category(models.Model):
     category_cn =models.CharField(max_length=500,null=True)
     category_fr =models.CharField(max_length=500,null=True)
     parent_category_id=models.IntegerField(db_index=True)
-    deleted_at =models.DateTimeField(auto_now=True,null=True)
+    deleted_at =models.DateTimeField(default=timezone.now,null=True)
     img_url=models.CharField(max_length=500,null=True)
     img_name=models.CharField(max_length=500,null=True)
     tax =models.DecimalField(decimal_places=2,max_digits=10)
     has_user=models.IntegerField(null=True)
     category_order=models.IntegerField(null=True)
-    created_at=models.DateTimeField(auto_now=True)
-    updated_at=models.DateTimeField(auto_now=True)
-    deleted_at=models.DateTimeField(auto_now=True)
+    created_at=models.DateTimeField(default=timezone.now)
+    updated_at=models.DateTimeField(default=timezone.now)
+    deleted_at=models.DateTimeField(default=timezone.now)
 
 class Product(models.Model):
     id = models.AutoField(primary_key=True)
@@ -199,32 +199,32 @@ class Product(models.Model):
     member_point = models.DecimalField(decimal_places=2,max_digits=12,default=0)
     is_hidden = models.BooleanField(null=True)
     shop_owner_id =models.IntegerField(null=True,db_index=True)
-    created_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(default=timezone.now)
     member_price = models.DecimalField(decimal_places=2,max_digits=12,default=0)
     product_quantity = models.IntegerField(null=True)
     tax_rate = models.DecimalField(decimal_places=2,max_digits=12,default=0)
     range_id = models.CharField(max_length=100,null=True)
     warn_quantity = models.IntegerField(null=True,db_index=True)
     category_id = models.IntegerField(null=True,db_index=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    updated_at = models.DateTimeField(default=timezone.now)
     img_name = models.CharField(max_length=100,null=True)
     product_description = models.CharField(max_length=100,null=True)
     cost_price = models.DecimalField(decimal_places=2,max_digits=12,default=0)
     member_privilege = models.IntegerField(db_index=True,null=True)
-    updated_return_date = models.DateTimeField(auto_now=True)
+    updated_return_date = models.DateTimeField(default=timezone.now)
     max_warn_quantity = models.IntegerField(db_index=True,null=True)
     product_barcode = models.CharField(max_length=100,null=True)
     product_size = models.DecimalField(decimal_places=2,max_digits=12,default=0)
     product_color = models.DecimalField(decimal_places=2,max_digits=12,default=0)
     unit_price = models.DecimalField(decimal_places=2,max_digits=10,default=0)
-    deleted_at = models.DateTimeField(auto_now=True)
+    deleted_at = models.DateTimeField(default=timezone.now)
     product_name = models.CharField(max_length=100,null=True)
     item_return = models.IntegerField(null=True)
-    expired_date = models.DateTimeField(auto_now=True)
+    expired_date = models.DateTimeField(default=timezone.now)
     shop_id = models.IntegerField(db_index=True,null=True)
     img_url = models.CharField(max_length=100,null=True)
     supplier_id = models.IntegerField(db_index=True,null=True)
-    return_date = models.DateTimeField(auto_now=True)
+    return_date = models.DateTimeField(default=timezone.now)
     
 class Product_Item_Order(models.Model):
     id = models.AutoField(primary_key=True)
