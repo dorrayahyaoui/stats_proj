@@ -10,10 +10,10 @@ from . import api
 urlpatterns = [
 
     # The home page
+    path('apex/',views.stats_tuto,name='tuto statts charts '),
     path('', views.index, name='home'),
-
+    path ('api/cachier/monthly',api.monthly_orders_per_cachier.as_view(),name='sales per month '),
     # Matches any html file
     re_path(r'^.*\.*', views.pages, name='pages'),
-    path ('api/cachier/monthly',api.monthly_orders_per_cachier.as_view(),name='sales per month ')
 
 ]

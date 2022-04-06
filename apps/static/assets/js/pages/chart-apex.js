@@ -3,6 +3,15 @@
 $(document).ready(function() {
     setTimeout(function() {
         $(function() {
+     
+            //function monthName(mon) {
+            //    return ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][mon - 1];
+            //}
+        
+            var data = jsonData.map((item) => item.value);
+            var labels = jsonData.map((item) => item.date);
+            console.log(data);
+            console.log(labels);
             var options = {
                 chart: {
                     height: 300,

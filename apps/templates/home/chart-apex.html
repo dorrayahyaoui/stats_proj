@@ -1,5 +1,5 @@
 {% extends "layouts/base.html" %}
-
+{% load static %}
 {% block title %} Apex Charts {% endblock %} 
 
 <!-- Specific CSS goes HERE -->
@@ -37,7 +37,8 @@
                             <h5>Basic line chart</h5>
                         </div>
                         <div class="card-body">
-                            <div id="line-chart-1"></div>
+                            <div id="line-chart-1" ></div>
+                            <div style="display: none" id="jsonData" data-json="{{ data }}"></div>
                         </div>
                     </div>
                 </div>
@@ -227,6 +228,9 @@
                             <div id="pie-chart-1" style="width:100%"></div>
                         </div>
                     </div>
+   
+   
+   
                 </div>
                 <div class="col-md-6">
                     <div class="card">
@@ -285,13 +289,61 @@
         </div>
     </div>
     <!-- [ Main Content ] end -->
+    <div class="card text-center m-5">
+        <div class="card-header">
+        <h2>Chart JS Tutorial</h2>
+        </div>
+        <canvas id="myChart" ></canvas>
+        
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+<script>
+window.onload = function () {
+    function monthName(mon) {
+        return ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][mon - 1];
+     }
+    var data = [
+    {% for item in list2 %}
+    monthName({{item.0}}),
+    {% endfor %}
+  ]
+  var labels = [
+    {% for item in list2 %}
+      "{{ item.1 }}",
+    {% endfor %}
+  ]
+  console.log(data);
+  console.log(labels);
 
+  var config = {
+    type: 'line',
+    data: {
+      labels: data,
+      datasets: [
+        {
+          label: 'A random dataset',
+          backgroundColor: 'black',
+          borderColor: 'lightblue',
+          data: labels,
+          fill: false
+        }
+      ]
+    },
+    options: {
+      responsive: true
+    }
+  };
+
+  var ctx = document.getElementById('myChart').getContext('2d');
+  window.myLine = new Chart(ctx, config);
+};
+</script>
+      </div>
+       
 {% endblock content %}
 
 <!-- Specific Page JS goes HERE  -->
 {% block javascripts %}
-
     <script src="/static/assets/js/plugins/apexcharts.min.js"></script>
-    <script src="/static/assets/js/pages/chart-apex.js"></script>
+    <script src="{% static 'assets/js/pages/chart-apex.js'  %}"></script>
 
 {% endblock javascripts %}

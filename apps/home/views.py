@@ -2,7 +2,7 @@
 """
 Copyright (c) 2019 - present AppSeed.us
 """
-
+import calendar
 from django import template
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
@@ -52,4 +52,15 @@ def pages(request):
         html_template = loader.get_template('home/page-500.html')
         return HttpResponse(html_template.render(context, request))
 
-
+@login_required(login_url="/login/")
+def stats_tuto(request):
+    query=Orders.objects.filter(cachier_id=11).values('created_at__date').annotate(count=Count('id')).values('created_at__date', 'count').order_by('created_at__date')
+    query1=Orders.objects.filter(cachier_id=11).extra({'month':"Extract(month from created_at)"}).values_list('month').annotate(Count('id')).order_by('month')
+    query2= Orders.objects.filter(cachier_id=11,created_at__month=12).extra({'day':"Extract(day from created_at)"}).values_list('day').annotate(Count('id'))
+    l1=list(query)
+    l2=list(query1)
+    print(l2)
+    l3=list(query2)
+    context = {'list1':l1,'list2':l2,'list3':l3 }
+    html_template = loader.get_template('home/chart-apex.html')
+    return HttpResponse(html_template.render(context, request))
