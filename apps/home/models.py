@@ -270,8 +270,8 @@ class Suppliers(models.Model):
     
 class Coupon(models.Model):
     id = models.AutoField(primary_key=True)
-    store = models.IntegerField(db_index=True)
-    chain =models.IntegerField(db_index=True)
+    store_id = models.IntegerField(db_index=True)
+    chain_id =models.IntegerField(db_index=True)
     barcode = models.CharField(max_length=255)
     start_date = models.IntegerField(db_index=True)
     expire_date = models.IntegerField(db_index=True)
