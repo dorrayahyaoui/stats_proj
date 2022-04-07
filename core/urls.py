@@ -9,6 +9,7 @@ from apps.home import api
 urlpatterns = [
     path('admin/', admin.site.urls),
     path ('api/cachier/monthly',api.monthly_orders_per_cachier.as_view(),name='sales per month '),
+     path ('api/cachier/bystore/',api.stat_cashier_bystore.as_view(),name='sales per month '),
     # Django admin route
     path("", include("apps.authentication.urls")), # Auth routes - login / register
     path("", include("apps.home.urls"))             # UI Kits Html files

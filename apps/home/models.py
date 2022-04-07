@@ -279,3 +279,21 @@ class Coupon(models.Model):
     created_at = models.DateTimeField(blank=True, null=True)
     updated_at = models.DateTimeField(blank=True, null=True)
     used = models.IntegerField(db_index=True)
+class Sale(models.Model):
+    id = models.AutoField(primary_key=True)
+    store_id = models.IntegerField(db_index=True)
+    sales=models.DecimalField(decimal_places=2,max_digits=12)
+    amount_per_card=models.DecimalField(decimal_places=2,max_digits=12)
+    amount_cash =models.DecimalField(decimal_places=2,max_digits=12)
+    products_sold= models.IntegerField()  
+    total_order= models.IntegerField()  
+    sales_member =models.DecimalField(decimal_places=2,max_digits=12)
+    sales_non_member =models.DecimalField(decimal_places=2,max_digits=12)
+    products_member= models.IntegerField()  
+    products_non_member=models.IntegerField()  
+    date=models.DateField(db_index=True)
+
+
+
+
+
